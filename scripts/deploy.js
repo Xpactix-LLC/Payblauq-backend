@@ -1,18 +1,26 @@
+// We require the Hardhat Runtime Environment explicitly here. This is optional
+// but useful for running the script in a standalone fashion through `node <script>`.
+//
+// You can also run a script with `npx hardhat run <script>`. If you do that, Hardhat
+// will compile your contracts, add the Hardhat Runtime Environment's members to the
+// global scope, and execute the script.
+
+const hre = require("hardhat");
 
 const main=async() =>{
   const testUSDT = await hre.ethers.getContractFactory("testUSDT");
-  const testUsdt = await testUSDT.deploy("USDT","USDT","10000000000000000000000000");
+  const TESTUSDT = await testUSDT.deploy("testUSDT","USDT","100000000000000000000");
 
-  await testUsdt.deployed();
-  console.log("USDT deployed to:", testUsdt.address)
+  await TESTUSDT.waitForDeployment();
+  console.log("testUSDT deployed to:",await TESTUSDT.getAddress())
 
+  // second contract
   
-  
-  // const PaymentGateway= await hre.ethers.getContractFactory("Web3PaymentGateway");
-  // const paymentGateway = await PaymentGateway.deploy(testUsdt.address);
+  const paymentGateway = await hre.ethers.getContractFactory("Web3PaymentGateway");
+  const PAYMENTGATEWAY = await paymentGateway.deploy(await TESTUSDT.getAddress());
 
-  // await paymentGateway.deployed();
-  // console.log("PaymentGateway deployed to:", paymentGateway.address)
+  await PAYMENTGATEWAY.waitForDeployment();
+  console.log("Payment Gateway deployed to:",await PAYMENTGATEWAY.getAddress())
 
 
 }
@@ -30,3 +38,49 @@ const runMain=async()=>{
   }
 }
 runMain();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

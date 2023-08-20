@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
-//Note: This contract is not going to production,should only be used for testing as subtitute to USDT(Tether)
+// This contract is not going to production,should only be used for testing as subtitute to USDT(Tether)
 contract testUSDT {
     string public name;
     string public symbol;
