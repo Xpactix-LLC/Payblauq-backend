@@ -15,7 +15,7 @@ interface IERC20 {
     function balanceOf(address account) external view returns (uint256);
 }
 
-contract Web3PaymentGateway is ReentrancyGuard, AccessControl {
+contract Payblauq_Merchant is ReentrancyGuard, AccessControl {
     using SafeMath for uint256;
 
     address public owner;
