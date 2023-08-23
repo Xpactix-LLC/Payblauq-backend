@@ -56,7 +56,7 @@ contract Payblauq_Merchant is ReentrancyGuard, AccessControl {
         emit MerchantAdded(msg.sender, block.timestamp);
     }
 
-    function removeMerchant(address merchantAddress) internal onlyOwner {
+    function removeMerchant(address merchantAddress) external onlyOwner {
         merchants[merchantAddress] = false;
         emit MerchantRemoved(merchantAddress, block.timestamp);
     }
