@@ -16,7 +16,7 @@ const main=async() =>{
 
   // second contract
   
-  const paymentGateway = await hre.ethers.getContractFactory("Web3PaymentGateway");
+  const paymentGateway = await hre.ethers.getContractFactory("Payblauq_Merchant");
   const PAYMENTGATEWAY = await paymentGateway.deploy(await TESTUSDT.getAddress());
 
   await PAYMENTGATEWAY.waitForDeployment();
