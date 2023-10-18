@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
-// This contract is not going to production,should only be used for testing as subtitute to USDT(Tether)
+
+// This contract is not going to production, should only be used for testing as a substitute for USDT (Tether)
 contract testUSDT {
     string public name;
     string public symbol;
@@ -13,7 +14,6 @@ contract testUSDT {
     event Approval(address indexed owner, address indexed spender, uint256 value);
 
     constructor(string memory _name, string memory _symbol, uint256 _totalSupply) {
-        
         name = _name;
         symbol = _symbol;
         totalSupply = _totalSupply;
@@ -48,5 +48,8 @@ contract testUSDT {
         return true;
     }
 
-   
+    // Get the balance of a specific address
+    function getBalance(address _addr) public view returns (uint256) {
+        return balanceOf[_addr];
+    }
 }

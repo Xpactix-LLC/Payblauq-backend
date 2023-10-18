@@ -9,7 +9,7 @@ const hre = require("hardhat");
 
 const main=async() =>{
   const testUSDT = await hre.ethers.getContractFactory("testUSDT");
-  const TESTUSDT = await testUSDT.deploy("testUSDT","USDT","100000000000000000000");
+  const TESTUSDT = await testUSDT.deploy("testUSDT","USDT","1000000000000000000000");
 
   await TESTUSDT.waitForDeployment();
   console.log("testUSDT deployed to:",await TESTUSDT.getAddress())
