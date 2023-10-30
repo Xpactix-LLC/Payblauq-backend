@@ -11,10 +11,9 @@ interface IERC20 {
     function balanceOf(address account) external view returns (uint256);
 }
 
-contract Payblauq_Merchant is ReentrancyGuard, AccessControl, Ownable {
-    bytes32 public constant MERCHANT_ROLE = keccak256("MERCHANT_ROLE");
+contract Payblauq_Merchant is ReentrancyGuard,Ownable {
     address public usdtAddress;
-
+    mapping(address=>bool) public merchant;
     mapping(address => uint256) public usdtBalances;
     mapping(bytes32 => Payment) public paymentDetails;
 
@@ -22,6 +21,13 @@ contract Payblauq_Merchant is ReentrancyGuard, AccessControl, Ownable {
         uint256 amount;
         address merchantAddress;
     }
+    modifier onlyMerchant(){
+        require(merchant[msg.sender] == true, "Caller is not a merchant");
+        _;
+
+
+    }
+
 
     event MerchantAdded(address indexed merchantAddress, uint256 time);
     event MerchantRemoved(address indexed merchantAddress, uint256 time);
@@ -30,16 +36,15 @@ contract Payblauq_Merchant is ReentrancyGuard, AccessControl, Ownable {
 
     constructor(address _usdtAddress) {
         usdtAddress = _usdtAddress;
-        _setupRole(DEFAULT_ADMIN_ROLE, msg.sender);
     }
-
+    
     function addMerchant(address merchantAddress) external {
-        grantRole(MERCHANT_ROLE, merchantAddress);
+        merchant[merchantAddress]=true;
         emit MerchantAdded(merchantAddress, block.timestamp); 
     }
 
     function removeMerchant(address merchantAddress) external onlyOwner {
-        revokeRole(MERCHANT_ROLE, merchantAddress);
+        merchant[merchantAddress]=false;
         emit MerchantRemoved(merchantAddress, block.timestamp);
     }
 
@@ -47,7 +52,7 @@ contract Payblauq_Merchant is ReentrancyGuard, AccessControl, Ownable {
         return usdtBalances[msg.sender];
     }
 
-    function generatePaymentLink(uint256 amountInUsdt) external onlyRole(MERCHANT_ROLE) returns (bytes32) {
+    function generatePaymentLink(uint256 amountInUsdt) external  onlyMerchant returns (bytes32) {
         require(amountInUsdt > 0, "Amount must be greater than 0.");
 
         Payment memory newPayment = Payment({
