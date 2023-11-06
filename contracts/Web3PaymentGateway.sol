@@ -14,6 +14,7 @@ interface IERC20 {
 contract Payblauq_Merchant is ReentrancyGuard,Ownable {
     address public usdtAddress;
     uint256 public totalNumMerchant; 
+    uint256 public currentPaymentId = 0;
     uint256 public totalTransactions;
     mapping(address=>bool) public merchant;
     mapping(address => uint256) public totalAmountMerchantTransaction;
@@ -23,7 +24,7 @@ contract Payblauq_Merchant is ReentrancyGuard,Ownable {
     struct Payment {
         uint256 amount;
         address merchantAddress;
-        uint256 linkGeneratingTime;   
+        uint256 paymentId;
     }
     modifier onlyMerchant(){
         require(merchant[msg.sender] == true, "Caller is not a merchant");
@@ -34,7 +35,7 @@ contract Payblauq_Merchant is ReentrancyGuard,Ownable {
     event MerchantAdded(address indexed merchantAddress, uint256 time);
     event MerchantRemoved(address indexed merchantAddress, uint256 time);
     event PaymentReceived(address indexed from, uint256 amountInUSDT);
-    event PaymentLinkGenerated(bytes32 indexed linkId, address indexed merchant, uint256 amountInUSDT, uint256 linkGeneratingTime);
+    event PaymentLinkGenerated(bytes32 indexed linkId, address indexed merchant, uint256 amountInUSDT, uint256 currentPaymentId);
 
     constructor(address _usdtAddress) {
         usdtAddress = _usdtAddress;
@@ -57,14 +58,15 @@ contract Payblauq_Merchant is ReentrancyGuard,Ownable {
 
     function generatePaymentLink(uint256 amountInUsdt) external  onlyMerchant returns (bytes32) {
         require(amountInUsdt > 0, "Amount must be greater than 0.");
+         currentPaymentId++;
         Payment memory newPayment = Payment({
             amount: amountInUsdt,
             merchantAddress: msg.sender,
-            linkGeneratingTime: block.timestamp
+            paymentId: currentPaymentId
         });
-        bytes32 linkId = keccak256(abi.encodePacked(msg.sender, amountInUsdt,block.timestamp));
+        bytes32 linkId = keccak256(abi.encodePacked(msg.sender, amountInUsdt,currentPaymentId));
         paymentDetails[linkId] = newPayment;
-        emit PaymentLinkGenerated(linkId, msg.sender, amountInUsdt,block.timestamp);
+        emit PaymentLinkGenerated(linkId, msg.sender, amountInUsdt,currentPaymentId);
         return linkId;
     }
 
