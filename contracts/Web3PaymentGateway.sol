@@ -120,29 +120,29 @@ contract Payblauq_Merchant is ReentrancyGuard,Ownable {
 
     emit AdminWithdraw(amount, withdrawalAddress, block.timestamp);
     }
-    function merchantWithdraw(uint256 amount, CurrencyType currency ) external onlyMerchant nonReentrant{
+    function merchantWithdraw(address withdrawalAddress, uint256 amount, CurrencyType currency ) external onlyMerchant nonReentrant{
         require(amount > 0, "Withdrawal amount must be greater than 0");
         if (currency == CurrencyType.USDT) {
         IERC20 usdt = IERC20(usdtAddress);
         uint256 balance = totalAmountUSDTTransaction[msg.sender];
         require(balance >= amount, "Insufficient USDT balance");
-        require(usdt.transfer(msg.sender, amount), "USDT transfer failed");
+        require(usdt.transfer(withdrawalAddress, amount), "USDT transfer failed");
         totalAmountUSDTTransaction[msg.sender]-=amount;
     }
         else if (currency == CurrencyType.WBTC) {
         IERC20 wbtc = IERC20(wbtcAddress);
         uint256 balance = totalAmountWBTCTransaction[msg.sender];
         require(balance >= amount, "Insufficient WBTC balance");
-        require(wbtc.transfer(msg.sender, amount), "WBTC transfer failed");
+        require(wbtc.transfer(withdrawalAddress, amount), "WBTC transfer failed");
         totalAmountWBTCTransaction[msg.sender]-=amount;
     }
         else if (currency == CurrencyType.Ether) {
         uint256 balance = totalAmountETHERTransaction[msg.sender];
         require(balance >= amount, "Insufficient Ether balance");
-        payable(msg.sender).transfer(amount);
+        payable(withdrawalAddress).transfer(amount);
         totalAmountETHERTransaction[msg.sender]-=amount;
     }
-    emit MerchantWithdraw(amount,msg.sender, currency,block.timestamp);
+    emit MerchantWithdraw(amount,withdrawalAddress, currency,block.timestamp);
     }
     
     function generatePaymentLink(uint256 amountTokens,CurrencyType currency) external  onlyMerchant returns (bytes32) {
