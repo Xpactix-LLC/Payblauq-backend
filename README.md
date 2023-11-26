@@ -59,9 +59,13 @@ The Payblauq_Merchant smart contract consists of the following components:
 ### State Variables<a name="state-variables"></a>
 `owner`: The address that deployed the contract.<br>
 `usdtAddress`: The address of the USDT token contract.<br>
+`wbtcAddress`:  The address of the wbtc tokeb contract.<br>
+`totalNumMerchants`: A public variable that stores the totak number of registered merchants.<br>
+`currentFeesinPercentage` A public variable that stores the current transaction fee for transactions.<br>
 `merchant`s: A mapping of addresses to merchant status.<br>
 `usdtBalance`s: A mapping of merchant addresses to their USDT balances.<br>
 `paymentDetails`: A mapping of link IDs to payment details.<br>
+
 
 ### Structs<a name="structs"></a>
 - `payment`: Represent information about an active payment that is going to be made from a sender to the Merchant, it includes the amount and address of the receiving merchant
