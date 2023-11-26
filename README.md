@@ -62,6 +62,7 @@ The Payblauq_Merchant smart contract consists of the following components:
 `wbtcAddress`:  The address of the wbtc tokeb contract.<br>
 `totalNumMerchants`: A public variable that stores the total number of registered merchants.<br>
 `currentFeesinPercentage` A public variable that stores the current transaction fee for transactions.<br>
+`currentPaymentId`: A state variable that is used to keep track of the current payment identifier. it is initialized to `0` and is then incremented each time a new payment link is generated.
 `merchant`s: A mapping of addresses to merchant status.<br>
 `usdtBalance`s: A mapping of merchant addresses to their USDT balances.<br>
 `paymentDetails`: A mapping of link IDs to payment details.<br>
