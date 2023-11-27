@@ -103,6 +103,12 @@ Merchants can be removed from the platform by the owner.
 ```
 Allows ownwer of the contract to update the transaction fees
 
+### `updateUsdtAddress()`<a name="updateUsdtAddress"></a>
+``` solidity
+    function updateUsdtAddress(address newUsdtAddress) external onlyOwner
+```
+Owner can update the USDT address on ethereum incase of a fork or changes on the layer 1 blockchain
+
 ### `generatePaymentLink()`<a name="generatePaymentLink"></a>
 ```solidity
   function generatePaymentLink(uint256 amountInUsdt) onlyMerchant external returns (bytes32)
