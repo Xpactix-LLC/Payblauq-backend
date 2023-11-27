@@ -12,6 +12,7 @@
 4. [Public Functions](#public-functions)
  - [addMerchant()](#addMerchant)
  - [removeMerchant()](#removeMerchant)
+ - [changeFees()](#changeFees)
  - [generatePaymentLink()](#generatePaymentLink)
  - [payWithLink()](#payWithLink)
  - [getBalance()](#getBalance)
@@ -70,12 +71,11 @@ The Payblauq_Merchant smart contract consists of the following components:
 `totalAmountWBTCTransaction` :  This mapping track the total transaction amounts for each merchant in WBTC.<br>
 `totalAmountETHERTransaction`:  This mapping track the total transaction amounts for each merchant in Ethers.<br>
 `totalMerchantTransaction`   :  This mapping tracks the total number of transactions for each merchant.
-`usdtBalance`: A mapping of merchant addresses to their USDT balances.<br>
 `paymentDetails`: A mapping of link IDs to payment details.<br>
 
 
 ### Structs<a name="structs"></a>
-- `payment`: Represent information about an active payment that is going to be made from a sender to the Merchant, it includes the amount and address of the receiving merchant
+- `payment`: Represent information about an active payment that is going to be made from a sender to the Merchant, it includes the amount,address of the receiving merchant,payment Id, currency type and transaction time
 ### Modifiers<a name="modifiers"></a>
 - `onlyOwner`- Allows only the deploying address to have access to some functions.
 - `onlyMerchants`- Allows only registered Merchants to have access to some functions.
@@ -95,7 +95,12 @@ Merchants can be added to the platform
 ```solidity
    function removeMerchant(address merchantAddress) external onlyOwner
 ```
-Merchants can be removed from the platform
+Merchants can be removed from the platform by the owner.
+
+### `chabgeFees()` <a name="changeFees"></a>.
+```solidity
+   function changeFees(uint256 percentage) external onlyOwner
+```
 
 ### `generatePaymentLink()`<a name="generatePaymentLink"></a>
 ```solidity
