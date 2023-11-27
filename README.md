@@ -101,6 +101,7 @@ Merchants can be removed from the platform by the owner.
 ```solidity
    function changeFees(uint256 percentage) external onlyOwner
 ```
+Allows ownwer of the contract to update the transaction fees
 
 ### `generatePaymentLink()`<a name="generatePaymentLink"></a>
 ```solidity
