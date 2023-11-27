@@ -13,6 +13,7 @@
  - [addMerchant()](#addMerchant)
  - [removeMerchant()](#removeMerchant)
  - [changeFees()](#changeFees)
+ - [updateUsdtAddress()](#updateUsdtAddress)
  - [generatePaymentLink()](#generatePaymentLink)
  - [payWithLink()](#payWithLink)
  - [getBalance()](#getBalance)
