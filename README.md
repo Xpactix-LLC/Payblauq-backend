@@ -97,7 +97,7 @@ Merchants can be added to the platform
 ```
 Merchants can be removed from the platform by the owner.
 
-### `chabgeFees()` <a name="changeFees"></a>.
+### `chabgeFees()` <a name="changeFees"></a>
 ```solidity
    function changeFees(uint256 percentage) external onlyOwner
 ```
