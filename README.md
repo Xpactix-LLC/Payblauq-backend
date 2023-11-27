@@ -14,6 +14,7 @@
  - [removeMerchant()](#removeMerchant)
  - [changeFees()](#changeFees)
  - [updateUsdtAddress()](#updateUsdtAddress)
+ - [updateWbtcAddress()](#updateWbtcAddress)
  - [generatePaymentLink()](#generatePaymentLink)
  - [payWithLink()](#payWithLink)
  - [getBalance()](#getBalance)
@@ -108,7 +109,9 @@ Allows ownwer of the contract to update the transaction fees
 ``` solidity
     function updateUsdtAddress(address newUsdtAddress) external onlyOwner
 ```
-Owner can update the USDT address on ethereum incase of a fork or changes on the layer 1 blockchain
+Owner can update the USDT address on ethereum incase of a fork or changes on the layer 1 blockchain.
+
+### `updateWbtcAddress()`<a name="updateWbtcAddress()"></a>
 
 ### `generatePaymentLink()`<a name="generatePaymentLink"></a>
 ```solidity
