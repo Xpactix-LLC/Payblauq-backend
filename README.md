@@ -15,6 +15,7 @@
  - [changeFees()](#changeFees)
  - [updateUsdtAddress()](#updateUsdtAddress)
  - [updateWbtcAddress()](#updateWbtcAddress)
+ - [adminWithdraw()](#adminWithdraw)
  - [generatePaymentLink()](#generatePaymentLink)
  - [payWithLink()](#payWithLink)
  - [getBalance()](#getBalance)
@@ -112,6 +113,8 @@ Allows ownwer of the contract to update the transaction fees
 Owner can update the USDT address on ethereum incase of a fork or changes on the layer 1 blockchain.
 
 ### `updateWbtcAddress()`<a name="updateWbtcAddress()"></a>
+
+### `adminWithdraw()`<a name="adminWithdraw"></a>
 
 ### `generatePaymentLink()`<a name="generatePaymentLink"></a>
 ```solidity
