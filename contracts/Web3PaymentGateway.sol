@@ -46,8 +46,8 @@ contract Payblauq_Merchant is ReentrancyGuard,Ownable {
     event MerchantRemoved(address indexed merchantAddress, uint256 time);
     event FeesChanged(uint256 currentFees, uint256 timeChanged);
     event AdminWithdraw(uint256 amountWithdrawn,address withdrawaAddress,uint256 time);
-    event MerchantWithdraw(uint256 amountWithdrawn,address indexed merchant,CurrencyType currency,uint256 time);
-    event PaymentReceived(address indexed from, uint256 amount, CurrencyType currency);
+    event MerchantWithdraw(uint256 amountWithdrawn,address indexed MerchantAddress,address indexed WithdrawalAddress,CurrencyType currency,uint256 time);
+    event PaymentReceived(address indexed from,address indexed MerchantAddress, uint256 amount, CurrencyType currency);
     event PaymentLinkGenerated(bytes32 indexed linkId, address indexed merchant, uint256 amountTokens, uint256 currentPaymentId,CurrencyType currency,uint256 transactionTime);
     event TokenAddressUpdated(string tokenType, address newAddress);
 
@@ -142,7 +142,7 @@ contract Payblauq_Merchant is ReentrancyGuard,Ownable {
         payable(withdrawalAddress).transfer(amount);
         totalAmountETHERTransaction[msg.sender]-=amount;
     }
-    emit MerchantWithdraw(amount,withdrawalAddress, currency,block.timestamp);
+    emit MerchantWithdraw(amount,msg.sender,withdrawalAddress, currency,block.timestamp);
     }
     
     function generatePaymentLink(uint256 amountTokens,CurrencyType currency) external  onlyMerchant returns (bytes32) {
@@ -180,6 +180,6 @@ contract Payblauq_Merchant is ReentrancyGuard,Ownable {
 
         totalTransactions++;
         totalMerchantTransaction[payment.merchantAddress]++;
-        emit PaymentReceived(msg.sender, payment.amount, payment.currency);
+        emit PaymentReceived(msg.sender,payment.merchantAddress,payment.amount, payment.currency);
     }
 }
