@@ -113,8 +113,13 @@ Allows ownwer of the contract to update the transaction fees
 Owner can update the USDT address on ethereum incase of a fork or changes on the layer 1 blockchain.
 
 ### `updateWbtcAddress()`<a name="updateWbtcAddress()"></a>
+Owner can update the WBTC address on ethereum incase of a fork or changes on the layer 1 blockchain.
 
 ### `adminWithdraw()`<a name="adminWithdraw"></a>
+```solidity
+ function adminWithdraw(address withdrawalAddress, uint256 amount, CurrencyType currency) external onlyOwner nonReentrant
+```
+This function provides a controlled way for the owner of the contract to withdraw funds from the contract in the specified currency type.
 
 ### `generatePaymentLink()`<a name="generatePaymentLink"></a>
 ```solidity
